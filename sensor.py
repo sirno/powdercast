@@ -22,9 +22,10 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_platform(hass, config, entry, async_add_entities, discovery_info=None):
+    _LOGGER.info("Setup powder cast entries.")
     async def async_update_data():
         try:
-            async with async_timeout.timeout(10):
+            async with async_timeout.timeout(60):
                 snow_height = await get_snow_height()
                 return [
                     {
