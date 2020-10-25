@@ -1,0 +1,9 @@
+{
+    "domain": "powder_cast",
+    "name": "Powder Cast",
+    "codeowners": ["@sirno"],
+    "requirements": [
+        "beautifulsoup4==4.9.3",
+        "requests==2.24.0"
+    ]
+}
