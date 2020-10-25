@@ -15,6 +15,6 @@ async def get_snow_heights():
     daily_weather = daily_right[0].find_all(class_="daily-weather")
     data = {}
     for day, day_weather in zip(dates, daily_weather):
-        totals_row = day_weather.tbody.find_all("tr")[-1].find_all("td")
+        totals_row = day_weather.tbody.find_all("tr")[-1]
         data[day] = totals_row.find_all(string=re.compile("-|([0-9]{1,3}\.[0-9]cm)"))
     return data
