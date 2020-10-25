@@ -41,7 +41,7 @@ class PowderCastEntity(Entity):
     @property
     def name(self):
         """Return the name of the powder cast sensor."""
-        return "Powder Cast"
+        return f"powder_cast_{self.location}"
 
     @property
     def state(self):
