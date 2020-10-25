@@ -4,9 +4,9 @@ import requests
 from bs4 import BeautifulSoup
 
 
-async def get_snow_heights():
-    URL = "https://wepowder.com/en/andermatt"
-    page = requests.get(URL)
+async def get_snow_heights(location):
+    URL = f"https://wepowder.com/en/{location}"
+    page = await requests.async(URL)
     soup = BeautifulSoup(page.content, "html.parser")
     daily_content = soup.find_all(class_="tab-content")[-1]
     daily_left = daily_content.find_all(class_="table-holder left")
