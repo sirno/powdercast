@@ -21,7 +21,7 @@ from .scrape import get_snow_heights
 _LOGGER = logging.getLogger(__name__)
 
 
-async def async_setup_entry(hass, entry, async_add_entities):
+async def async_setup_platform(hass, config, entry, async_add_entities, discovery_info=None):
     async def async_update_data():
         try:
             async with async_timeout.timeout(10):
