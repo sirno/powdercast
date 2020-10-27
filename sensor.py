@@ -12,6 +12,7 @@ from .const import (
     ATTR_SNOW_HEIGHT_MID,
     ATTR_SNOW_HEIGHT_TOP,
     CONF_LOCATIONS,
+    SCAN_INTERVAL,
 )
 from .scrape import get_snow_heights
 
@@ -44,7 +45,7 @@ class PowderCastEntity(Entity):
         """Return the state of the sensor."""
         if self._data is None:
             return None
-        return self.coordinator.data[0][ATTR_DATE]
+        return self._data[0][ATTR_DATE]
 
     @property
     def device_state_attributes(self):
@@ -58,8 +59,8 @@ class PowderCastEntity(Entity):
         """Poll data from WePowder."""
         try:
             async with async_timeout.timeout(60):
-                self._data = await get_snow_heights(self.location)
-                return [
+                snow_heights = await get_snow_heights(self.location)
+                self._data = [
                     {
                         ATTR_DATE: k,
                         ATTR_TIMESTAMP: datetime.now(),
@@ -67,7 +68,7 @@ class PowderCastEntity(Entity):
                         ATTR_SNOW_HEIGHT_MID: v[1],
                         ATTR_SNOW_HEIGHT_TOP: v[0],
                     }
-                    for k, v in snow_height.items()
+                    for k, v in snow_heights.items()
                 ]
         except Exception as err:
             raise UpdateFailed(f"Error: {err}.")
