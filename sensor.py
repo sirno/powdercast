@@ -1,17 +1,13 @@
 import async_timeout
 import logging
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from homeassistant.helpers.entity import Entity
-from homeassistant.helpers.update_coordinator import (
-    UpdateFailed,
-    DataUpdateCoordinator,
-    CoordinatorEntity,
-)
 
 from .const import (
     DOMAIN,
     ATTR_DATE,
+    ATTR_TIMESTAMP,
     ATTR_SNOW_HEIGHT_BOT,
     ATTR_SNOW_HEIGHT_MID,
     ATTR_SNOW_HEIGHT_TOP,
@@ -66,6 +62,7 @@ class PowderCastEntity(Entity):
                 return [
                     {
                         ATTR_DATE: k,
+                        ATTR_TIMESTAMP: datetime.now(),
                         ATTR_SNOW_HEIGHT_BOT: v[2],
                         ATTR_SNOW_HEIGHT_MID: v[1],
                         ATTR_SNOW_HEIGHT_TOP: v[0],
